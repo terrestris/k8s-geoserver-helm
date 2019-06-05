@@ -30,11 +30,13 @@ spec:
               protocol: TCP
           livenessProbe:
             httpGet:
-              path: /
+              path: /geoserver/index.html
               port: http
+            initialDelaySeconds: 60
+            periodSeconds: 10
           readinessProbe:
             httpGet:
-              path: /
+              path: /geoserver/index.html
               port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
