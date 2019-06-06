@@ -37,3 +37,7 @@ affinity: {}
 
 postgress:
   password: mysecretpassword
+
+pvc:
+  size: 10Gi
+  storageClassName: hcloud-volumes

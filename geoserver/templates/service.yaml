@@ -1,9 +1,9 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "helm.fullname" . }}
+  name: {{ include "geoserver.fullname" . }}
   labels:
-{{ include "helm.labels" . | indent 4 }}
+{{ include "geoserver.labels" . | indent 4 }}
 spec:
   type: {{ .Values.service.type }}
   ports:
@@ -12,5 +12,5 @@ spec:
       protocol: TCP
       name: http
   selector:
-    app.kubernetes.io/name: {{ include "helm.name" . }}
+    app.kubernetes.io/name: {{ include "geoserver.name" . }}
     app.kubernetes.io/instance: {{ .Release.Name }}

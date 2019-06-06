@@ -10,6 +10,8 @@ spec:
     matchLabels:
       app.kubernetes.io/name: {{ include "postgis.name" . }}
       app.kubernetes.io/instance: {{ .Release.Name }}
+  strategy:
+    type: Recreate
   template:
     metadata:
       labels:
@@ -41,6 +43,13 @@ spec:
           #     port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+          volumeMounts:
+            - mountPath: "/var/lib/postgresql"
+              name: postgis-volume
+      volumes:
+        - name: postgis-volume
+          persistentVolumeClaim:
+            claimName: {{ include "postgis.fullname" . }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

@@ -50,7 +50,11 @@ tolerations: []
 
 affinity: {}
 
-# values for postgis subchart
+pvc:
+  size: 10Gi
+  storageClassName: hcloud-volumes
+
+# values override for postgis subchart
 postgis:
   postgress:
     password: X3jTxmfHjf6Z0kWCYXJkYv4PdMIz3mwy
