@@ -40,4 +40,4 @@ postgress:
 
 pvc:
   size: 10Gi
-  storageClassName: hcloud-volumes
+  storageClassName: ""

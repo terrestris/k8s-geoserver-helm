@@ -52,7 +52,10 @@ affinity: {}
 
 pvc:
   size: 10Gi
-  storageClassName: hcloud-volumes
+  storageClassName: ""
+
+geoserver:
+  datadir: /data/geoserver_data
 
 # values override for postgis subchart
 postgis:
