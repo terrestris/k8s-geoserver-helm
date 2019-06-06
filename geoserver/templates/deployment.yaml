@@ -26,6 +26,9 @@ spec:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            - name: GEOSERVER_DATA_DIR
+              value: {{ .Values.geoserver.datadir }}
           ports:
             - name: http
               containerPort: {{ .Values.containerPort }}
@@ -43,7 +46,14 @@ spec:
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
-            - mountPath: "/opt/geoserver_data"
+            - mountPath: "/data"
+              name: geoserver-volume
+      initContainers:
+        - name: init-geoserver-data-dir
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          command: ['sh', '-c', 'mv /opt/geoserver_data /data/ || true']
+          volumeMounts:
+            - mountPath: "/data"
               name: geoserver-volume
       volumes:
         - name: geoserver-volume
