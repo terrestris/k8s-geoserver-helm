@@ -1,36 +1,21 @@
-# Default values for helm.
+# Default values for postgis.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
 replicaCount: 1
 
 image:
-  repository: terrestris/geoserver
-  tag: latest
+  repository: mdillon/postgis
+  tag: 11-alpine
   pullPolicy: IfNotPresent
 
 imagePullSecrets: []
 nameOverride: ""
-fullnameOverride: "geoserver"
-containerPort: 8080
+fullnameOverride: "postgis"
 
 service:
   type: ClusterIP
-  port: 8080
-
-ingress:
-  enabled: true
-  annotations:
-    kubernetes.io/ingress.class: traefik
-    # kubernetes.io/tls-acme: "true"
-  hosts:
-    - host: gs.k8s-test.terrestris.de
-      paths: [ "/" ]
-
-  tls: []
-  #  - secretName: chart-example-tls
-  #    hosts:
-  #      - chart-example.local
+  port: 5432
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
@@ -50,7 +35,5 @@ tolerations: []
 
 affinity: {}
 
-# values for postgis subchart
-postgis:
-  postgress:
-    password: X3jTxmfHjf6Z0kWCYXJkYv4PdMIz3mwy
+postgress:
+  password: mysecretpassword
