@@ -36,7 +36,7 @@ tolerations: []
 affinity: {}
 
 postgress:
-#  secretEnvs:
+  secretEnvs: []
 #    - name: POSTGRES_PASSWORD
 #      refName: postgis-secrets
 #      refKey: POSTGRES_PASSWORD
