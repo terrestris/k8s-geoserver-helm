@@ -27,8 +27,17 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
-            - name: POSTGRES_PASSWORD
-              value: {{ .Values.postgress.password }}
+            {{- range .Values.postgress.secretEnvs }}
+            - name: {{ .name }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .refName }}
+                  key: {{ .refKey }}
+            {{- end }}
+            {{- range .Values.postgress.envs }}
+            - name: {{ .name }}
+              value: {{ .value | quote }}
+          {{- end }}
           ports:
             - name: tcp
               containerPort: 5432
