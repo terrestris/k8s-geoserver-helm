@@ -36,7 +36,13 @@ tolerations: []
 affinity: {}
 
 postgress:
-  password: mysecretpassword
+  secretEnvs: []
+#    - name: POSTGRES_PASSWORD
+#      refName: postgis-secrets
+#      refKey: POSTGRES_PASSWORD
+  envs:
+    name: POSTGRES_PASSWORD
+    value: mysecretpassword
 
 pvc:
   size: 10Gi
